@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>My Wishlist</h2>
+  <ul>
+    {% for item in wishlist_items %}
+      <li>{{ item.course_name }} - Added at {{ item.added_at }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

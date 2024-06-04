@@ -1,0 +1,36 @@
+<!-- ck.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CK Editor Example</title>
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+</head>
+<body>
+    {% for geeks_object in geeks_objects %}
+        <div>
+            <h2>{{ geeks_object.name }}</h2>
+            <!-- Display the rich text content -->
+            {{ geeks_object.des|safe }}
+        </div>
+    {% endfor %}
+
+    <!-- Display CKEditor form -->
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+        <br>
+        <label for="des">Description:</label>
+        <textarea name="des" id="des" required></textarea>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        // Initialize CKEditor for the textarea
+        CKEDITOR.replace('des');
+    </script>
+</body>
+</html>

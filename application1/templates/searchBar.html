@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'application1/css/search.css' %}">
+<h3 align="center">Search Results</h3>
+<div class="row justify-content-center m-4">
+  {% if products %} {% for product in products %}
+  <div class="col md-4">
+    <div class="card m-2" style="width: 18rem">
+      <img
+        src="{{ product.image.url }}"
+        class="card-img-top"
+        alt="..."
+        height="300px"
+        width="200px"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <h4 class="card-text">{{ product.price }}</h4>
+        <h4 class="card-text">{{ product.description }}</h4>
+        <p class="card-text mt-1">{{ product.created_at }}</p>
+        <a href="{% url 'productdetails' product.pk %}" class="btn btn-primary"
+          >Go More Details</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <h3>*****Details Not Found******</h3>
+  {% endif %}
+</div>
+
+{% endblock %}

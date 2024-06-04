@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'application1/css/show.css' %}">
+<h3 align="center">Products</h3>
+
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-lg-3 mx-auto">
+      <div class="list-group">
+
+        <a href="{% url 'show' %}" class="list-group-item" style="text-decoration: none; background-color: #0d6efd;">All
+          Products({{number_of_products}})</a>
+
+        {% for category in categories %}
+        <a href="{% url 'show' %}?category={{ category.name }}"
+          class="list-group-item list-group-item-action btn btn-outline-primary ">{{ category.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div id='products' class="col-lg-9 mx-auto">
+      <div class="row mx-auto">
+        {% if products %} {% for product in products %}
+        <div class="col md-4">
+          <div class="card m-2" style="width: 18rem">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="..." height="300px" width="200px" />
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">Price:{{ product.price }}</p>
+              <p class="card-text">Description:{{ product.description }}</p>
+              <p class="card-text mt-1">Category: {{ product.category.name }}</p>
+              <p class="card-text mt-1">{{ product.created_at }}</p>
+              <div class="d-grid gap-2">
+                <a href="{% url 'productdetails' product.pk %}" class="btn btn-primary">Go More Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <h3>Data Not Found</h3>
+        {% endif %}
+      </div>
+    </div>
+    <h5>Pagination</h5>
+    <div class="row m-2">
+      <div class="col-md-12 m-3">
+        {% if products.has_other_pages %}
+        <ul class="pagination">
+          {% if products.has_previous %}
+          <li class="page-item">
+            <a href="?page={{ products.previous_page_number }}"><span class="page-link">Previous</span></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a href="?page={{ products.paginator.number_pages }}" class="page-link">Previous</a>
+          </li>
+          {% endif %}
+          <!--Open Number Pagination-->
+          {% for i in products.paginator.page_range %}
+          {% if products.number == i %}
+          <li class="page-item active">
+            <a href="?page={{ i }}" class="page-link"> {{ i }}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+          </li>
+          {% endif %}
+          <div class=""></div>
+
+          {% endfor %}
+          <!--Close Number Pagination-->
+          <!--Next Button is started-->
+          {% if products.has_next %}
+          <li class="page-item">
+            <a href="?page={{ products.next_page_number }}"><span class="page-link">Next</span></a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a href="?page={{ products.paginator.number_pages }}" class="page-link">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

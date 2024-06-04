@@ -1,0 +1,33 @@
+body {
+    background-color: transparent;
+    color: #343a40;
+  }
+  
+  .navbar {
+    background-color: #007bff;
+  }
+  
+  .navbar-brand,
+  .nav-link {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+  }
+  
+  .navbar-brand:hover,
+  .nav-link:hover {
+    color: #f8f9fa;
+  }
+
+
+.form-control {
+    font-family: 'Arial', sans-serif; 
+    background-color: #f8f9fa; 
+    color: #495057;
+  }
+  
+.btn-outline-success {
+    font-family: 'Arial', sans-serif; 
+    background-color: #28a745; 
+    color: #fff;
+  }
+
